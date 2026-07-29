@@ -18,7 +18,7 @@ Local Favicon Labeler 会保留网站原来的图标，并在右下角合成一�
 
 | 访问 `/banner` | 切换到 `/shelf` |
 | --- | --- |
-| ![浏览器标签栏：原始图标上叠加 LOC 标签](docs/images/banner-page.png) | ![浏览器标签栏：路由切换后 LOC 标签仍保留](docs/images/shelf-page.png) |
+| ![浏览器标签栏：原始图标上叠加 LOC 标签](docs/images/browser-tabs-banner.png) | ![浏览器标签栏：路由切换后 LOC 标签仍保留](docs/images/browser-tabs-shelf.png) |
 
 ## 下载与安装
 
