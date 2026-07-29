@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <path fill="#fff" d="M12 3h27l13 13v37a7 7 0 0 1-7 7H12a7 7 0 0 1-7-7V10a7 7 0 0 1 7-7Z"/>
+  <path fill="#d7d7d7" d="M39 3v13h13Z"/>
+  <rect x="3" y="34" width="58" height="26" rx="4" fill="#ff9700"/>
+  <text x="32" y="52" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="700" text-anchor="middle">LOC</text>
+</svg>

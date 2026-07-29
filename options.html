@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Favicon Labeler</title><link rel="stylesheet" href="options.css"></head>
+  <body>
+    <main>
+      <header><div class="mark">LOC</div><div><p class="eyebrow">BROWSER EXTENSION</p><h1>环境标签</h1></div></header>
+      <section class="intro"><h2>一眼识别当前环境</h2><p>匹配网址后，标签页图标会替换为带文字的环境标记。规则按顺序匹配，第一条命中即生效。</p></section>
+      <section class="panel"><div class="panel-head"><span>规则</span><span class="hint">支持 <code>*</code> 通配符；多个域名用逗号分隔</span></div><div id="rules" class="rules"></div><button id="add" class="add" type="button">＋ 添加规则</button></section>
+      <footer><span id="status" aria-live="polite"></span><button id="save" type="button">保存更改</button></footer>
+    </main>
+    <template id="rule-template"><article class="rule"><label class="switch"><input class="enabled" type="checkbox" checked><span></span></label><input class="color" type="color" aria-label="颜色"><input class="name" maxlength="5" placeholder="LOC" aria-label="标签名称"><input class="matches" placeholder="localhost, 127.0.0.1" aria-label="匹配域名"><div class="preview" aria-label="预览"><i></i><b></b></div><button class="delete" type="button" aria-label="删除规则">×</button></article></template>
+    <script src="options.js"></script>
+  </body>
+</html>

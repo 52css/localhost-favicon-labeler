@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Local Favicon Labeler",
+  "version": "1.0.0",
+  "description": "Adds a clear environment label to the favicon of matching sites.",
+  "permissions": ["storage", "tabs", "webNavigation"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["content.js"],
+    "run_at": "document_start"
+  }],
+  "web_accessible_resources": [{
+    "resources": ["assets/loc.svg"],
+    "matches": ["<all_urls>"]
+  }],
+  "options_page": "options.html",
+  "action": { "default_title": "Local Favicon Labeler settings" }
+}
