@@ -6,6 +6,14 @@
 [![License](https://img.shields.io/github/license/52css/localhost-favicon-labeler)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white)](manifest.json)
 
+## 支持端口级规则
+
+匹配条件既支持 `hostname`，也支持 `hostname:port`。例如可将 `127.0.0.1:8077`、`127.0.0.1:8078` 和 `127.0.0.1:14792` 单独标记为 **TUN**，用于区分隧道穿透端口。
+
+带端口的规则优先于普通 hostname 规则；同一级别内按配置顺序匹配。
+
+![配置端口级规则：将 8077、8078 和 14792 标记为 TUN](docs/images/port-specific-rules-v102.png)
+
 ## 它解决什么问题？
 
 同一个项目通常会同时存在本地、开发、测试与正式环境。它们的 favicon 往往完全一致，多开标签页时很容易误操作。
