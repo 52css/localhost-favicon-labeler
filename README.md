@@ -14,11 +14,11 @@ Local Favicon Labeler 会保留网站原来的图标，并在右下角合成一�
 
 ## 效果
 
-下面两张真实页面截图中，浏览器标签左侧都保留了各项目原始 favicon，同时添加了橙色 `LOC` 标记；不同项目、不同路由都能一眼识别为本地环境。
+下面仅展示浏览器顶部区域：标签左侧保留各项目原始 favicon，同时叠加橙色 `LOC` 标记；切换路由后仍可一眼识别本地环境。
 
-| Banner 页面 | 店铺陈列页面 |
+| 访问 `/banner` | 切换到 `/shelf` |
 | --- | --- |
-| ![Banner 页面：原始图标上叠加 LOC 标签](docs/images/banner-page.png) | ![店铺陈列页面：路由切换后 LOC 标签仍保留](docs/images/shelf-page.png) |
+| ![浏览器标签栏：原始图标上叠加 LOC 标签](docs/images/banner-page.png) | ![浏览器标签栏：路由切换后 LOC 标签仍保留](docs/images/shelf-page.png) |
 
 ## 下载与安装
 
