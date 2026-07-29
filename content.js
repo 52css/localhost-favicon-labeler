@@ -4,6 +4,7 @@ const DEFAULT_RULES = [
   { id: "oa", name: "OA", color: "#009b8e", matches: "oa*", enabled: true }
 ];
 const APPLIED = "data-local-favicon-labeler";
+const CREATED_FALLBACK = "data-local-favicon-labeler-fallback";
 
 function matches(hostname, patterns) {
   return patterns.split(/[,\n]+/).some((item) => {
@@ -24,6 +25,11 @@ function makeSvg(original, rule) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
+function fallbackOriginal() {
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="32" rx="6" fill="#68737d"/></svg>';
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
 async function applyRule(rule) {
   const link = [...document.querySelectorAll('link[rel~="icon"]')]
     .filter((item) => item.getAttribute(APPLIED) !== "true")
@@ -34,6 +40,17 @@ async function applyRule(rule) {
     link.href = makeSvg(original, rule);
     link.setAttribute(APPLIED, "true");
     link.setAttribute("data-local-original-favicon", original);
+    return true;
+  }
+  if (!document.querySelector(`link[${APPLIED}="true"]`)) {
+    const original = fallbackOriginal();
+    const fallback = document.createElement("link");
+    fallback.setAttribute("rel", "icon");
+    fallback.href = makeSvg(original, rule);
+    fallback.setAttribute(APPLIED, "true");
+    fallback.setAttribute(CREATED_FALLBACK, "true");
+    fallback.setAttribute("data-local-original-favicon", original);
+    document.head.appendChild(fallback);
     return true;
   }
   const appliedLink = document.querySelector(`link[${APPLIED}="true"]`);
@@ -47,6 +64,10 @@ function restoreOriginal() {
   const link = document.querySelector(`link[${APPLIED}="true"]`);
   const original = link?.getAttribute("data-local-original-favicon");
   if (!link || !original) return;
+  if (link.getAttribute(CREATED_FALLBACK) === "true") {
+    link.remove();
+    return;
+  }
   link.href = original;
   link.removeAttribute(APPLIED);
   link.removeAttribute("data-local-original-favicon");

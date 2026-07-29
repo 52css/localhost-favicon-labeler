@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Local Favicon Labeler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds a clear environment label to the favicon of matching sites.",
   "permissions": ["storage", "tabs", "webNavigation"],
   "host_permissions": ["<all_urls>"],

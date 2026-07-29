@@ -24,7 +24,7 @@ Local Favicon Labeler 会保留网站原来的图标，并在右下角合成一�
 
 ### 方式一：下载安装包（推荐）
 
-1. 前往 [Releases](https://github.com/52css/localhost-favicon-labeler/releases/latest)，下载 `localhost-favicon-labeler-v1.0.0.zip`。
+1. 前往 [Releases](https://github.com/52css/localhost-favicon-labeler/releases/latest)，下载最新版本的 `localhost-favicon-labeler-v*.zip`。
 2. 解压 ZIP 文件。
 3. 打开 `chrome://extensions`；Edge 请打开 `edge://extensions`。
 4. 开启右上角的「开发者模式」。
