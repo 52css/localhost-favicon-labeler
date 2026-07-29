@@ -6,12 +6,40 @@ const DEFAULT_RULES = [
 const APPLIED = "data-local-favicon-labeler";
 const CREATED_FALLBACK = "data-local-favicon-labeler-fallback";
 
-function matches(hostname, patterns) {
-  return patterns.split(/[,\n]+/).some((item) => {
+function wildcardMatches(value, pattern) {
+  const source = pattern
+    .split("*")
+    .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join(".*");
+  return new RegExp(`^${source}$`, "i").test(value);
+}
+
+function hasExplicitPort(pattern) {
+  if (pattern.startsWith("[")) return /^\[[^\]]+\]:.+$/.test(pattern);
+  return pattern.includes(":");
+}
+
+function matchRank(target, patterns) {
+  return patterns.split(/[,\n]+/).reduce((best, item) => {
     const pattern = item.trim();
-    if (!pattern) return false;
-    return new RegExp(`^${pattern.replace(/[.+?^${}()|[\\]\\]/g, "\\$&").replace(/\*/g, ".*")}$`, "i").test(hostname);
-  });
+    if (!pattern) return best;
+    const portSpecific = hasExplicitPort(pattern);
+    const value = portSpecific ? target.host : target.hostname;
+    if (!wildcardMatches(value, pattern)) return best;
+    return Math.max(best, portSpecific ? 2 : 1);
+  }, 0);
+}
+
+function selectRule(target, rules) {
+  return rules
+    .map((rule, index) => ({
+      rule,
+      index,
+      rank: rule.enabled === false ? 0 : matchRank(target, rule.matches)
+    }))
+    .filter(({ rank }) => rank > 0)
+    .sort((left, right) => right.rank - left.rank || left.index - right.index)
+    .at(0)?.rule;
 }
 
 function toDataUrl(url) {
@@ -75,8 +103,8 @@ function restoreOriginal() {
 
 async function start() {
   const { rules } = await chrome.storage.sync.get("rules");
-  const rule = (Array.isArray(rules) ? rules : DEFAULT_RULES)
-    .find((item) => item.enabled !== false && matches(location.hostname, item.matches));
+  const availableRules = Array.isArray(rules) ? rules : DEFAULT_RULES;
+  const rule = selectRule(location, availableRules);
   if (!rule) {
     restoreOriginal();
     return;
